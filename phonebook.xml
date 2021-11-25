@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<phonebook>
+	<contact id = "00001">
+		<name>Elif Ekmekçi</name>
+		<phone>2548952011</phone>
+		<email>elif90@gmail.com</email>
+		<picDir>photo\00001</picDir>
+	</contact>
+	<contact id = "00002">
+		<name>Bukar Adebayo</name>
+		<phone>4751236453</phone>
+		<email>bukar6453@yahoo.com</email>
+		<picDir>photo\00002</picDir>
+	</contact>
+	<contact id = "00003">
+		<name>Juda Alfarsi</name>
+		<phone>9954123654</phone>
+		<email>jj@hotmail.com</email>
+		<picDir>photo\00003</picDir>
+	</contact>
+	<contact id = "00004">
+		<name>Georgene Clarence</name>
+		<phone>1245789630</phone>
+		<email>profCl@gmail.com</email>
+		<picDir>photo\00004</picDir>
+	</contact>
+	<contact id = "00005">
+		<name>Đức Văn</name>
+		<phone>0365484759</phone>
+		<email>vndc1886@yahoo.com</email>
+		<picDir>photo\00005</picDir>
+	</contact>
+</phonebook>

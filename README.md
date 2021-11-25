@@ -2,10 +2,13 @@
 Lập trình socket HCMUS N10 20CLC
 
 # Tính năng:
-- [ ] Hiện danh sách danh bạ
-- [ ] Class Thành viên?
-- [ ] Tìm kiếm thành viên
+- [X] Hiện danh sách danh bạ
+- [X] Tìm kiếm thành viên
+- [X] Hỗ trợ nhiều user
+
 - [ ] Download tất cả avatar
 - [ ] Download avatar của một thành viên
 - [ ] Show avatar sau download
-- [X] Hỗ trợ nhiều thành viên
+
+#Note:
+- Không cần class contact, t nghĩ làm là cứ đọc file r in ra là đc r
