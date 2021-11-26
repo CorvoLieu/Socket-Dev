@@ -51,47 +51,36 @@ def findByEmail(email: str):
     return 0
 
 # Hoat dong/code chinh trong phan nay
-# def handle_client(conn, addr):
-#     print(f"[CONNECTION] {addr} connected.")
+def handle_client(conn, addr):
+    print(f"[CONNECTION] {addr} connected.")
 
-#     connected = True
-#     while connected:
-#         msg = conn.recv(SIZE).decode(FORMAT)
+    connected = True
+    while connected:
+        msg = conn.recv(SIZE).decode(FORMAT)
 
-#         if msg == DISCONECT_MESSAGE:
-#             connected = False
-#             continue
+        if msg == DISCONECT_MESSAGE:
+            connected = False
+            continue
             
-#         print(f"[{addr}] {msg}")
+        print(f"[{addr}] {msg}")
     
-#     conn.close()
-#     print(f"[DISCONNECT] {addr} Disconnected.")
+    conn.close()
+    print(f"[DISCONNECT] {addr} Disconnected.")
 
 
-# def main():
-#     print("[STARTING] Server is starting")
-#     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     server.bind(ADDR)
-#     server.listen()
-#     print("[LISTENING] Waiting for client")
-#     while True:
-#         conn, addr = server.accept()
-#         thread = threading.Thread(target = handle_client, args=(conn, addr))
-#         thread.start()
+def main():
+    print("[STARTING] Server is starting")
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(ADDR)
+    server.listen()
+    print("[LISTENING] Waiting for client")
+    while True:
+        conn, addr = server.accept()
+        thread = threading.Thread(target = handle_client, args=(conn, addr))
+        thread.start()
 
-#         print(f"[CONNECTION] Active connection: {threading.active_count() - 1}.")
+        print(f"[CONNECTION] Active connection: {threading.active_count() - 1}.")
         
 
-# if __name__ == "__main__":
-#     main()
-
-
-displayPhoneBook()
-
-finding = str("Đức Văn")
-print(f"Finding person: {finding}")
-findPerson = findByName(finding)
-if findPerson != 0:
-    displayContact(findPerson)
-else:
-    print("Can't find contact in phonebook")
+if __name__ == "__main__":
+    main()
