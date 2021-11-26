@@ -1,5 +1,6 @@
 import socket
 import threading
+from contact import Contact
 
 IP = socket.gethostbyname(socket.gethostname())
 PORT = 9999
@@ -9,13 +10,28 @@ DISCONECT_MESSAGE = "!DISCONNECT"
 
 COMMAND = { 
     0: "!DISCONNECT",
-    1: "!DISP_ALL",
+    1: "!DISPLAY_LIST",
     2: "!FIND_NAME_",
     3: "!FIND_NUMB_",
     4: "!FIND_MAIL_"
 }
 
-def menu() -> int:
+#In thong tin cua mot ng
+def displayContact(c: Contact) -> None:
+    print(f"Name: {c.getName()}")
+    print(f"ID: {c.getID()}")
+    print(f"Phone: {c.getPhone()}")
+    print(f"Email: {c.getEmail()}")
+
+#In thong tin toan bo danh ba
+def displayPhoneBook(ls: list) -> None:
+    print("----------------------------")
+    for c in ls:
+        displayContact(c)
+        print("----------------------------")
+
+#Use with COMMAND dic: COMMAND[n]
+def menu() -> int and str:
     print("\tMenu\t")
     print("1. Display the phonebook")
     print("2. Find a contact")
@@ -42,10 +58,12 @@ def menu() -> int:
                 elif int(m) == 0:
                     break
                 else:
-                    return n + m - 1
+                    print("Enter finding information: ", end = '')
+                    info = input()
+                    return int(n) + int(m) - 1, info
             continue
         else:
-            return n
+            return n, ''
     
 
 def main():
@@ -56,7 +74,8 @@ def main():
 
     connected = True
     while connected:
-        msg = input()
+        cmd, info = menu()
+        msg = COMMAND[int(cmd)] + info
 
         if msg == DISCONECT_MESSAGE:
             connected = False
