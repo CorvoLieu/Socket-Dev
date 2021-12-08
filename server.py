@@ -27,7 +27,7 @@ contact = phonebook.findall('contact') #Open as tree
 def compileContactList() -> bytes:
     ls = []
     for c in contact:
-        ls.append(contactFromTree(c))
+        ls.append(compileFromTree(c))
 
     return ls
 
@@ -55,7 +55,6 @@ def findByEmail(email: str):
 #Find contact and return the contact
 #isFound return true if the contact is found
 def findContact(msg: str):
-    isFound = False
 
     if msg[6:10] == 'NAME':
         foundContact = findByName(msg[11:])
@@ -66,16 +65,17 @@ def findContact(msg: str):
 
     #Check return information
     if foundContact != 0:
-        isFound = True
-        result = contactFromTree(foundContact)    
+        result = compileFromTree(foundContact)    
     else:
         result = 0
 
-    return result, isFound
+    return result
 
 #Create a contact from tree Element
-def contactFromTree(info: ET.Element) -> Contact:
-    return Contact(info.find('name').text, info.attrib['id'], info.find('phone').text, info.find('email').text)
+def compileFromTree(info: ET.Element) -> Contact:
+    file = open(f"photo\\{info.attrib['id']}.jpg", 'rb')
+    data = file.read()
+    return Contact(info.find('name').text, info.attrib['id'], info.find('phone').text, info.find('email').text, data)
 
 # Hoat dong/code chinh trong phan nay
 def handle_client(clientSocket, clientAddr):
@@ -92,23 +92,13 @@ def handle_client(clientSocket, clientAddr):
         elif msg == COMMAND[1]:
             result = compileContactList()
         elif msg[1:5] == 'FIND':
-            result, isFound = findContact(msg)
+            result = findContact(msg)
             
         respond = pickle.dumps(result)
+        respondSize = len(respond)
         
+        clientSocket.send(str(respondSize).encode(FORMAT))
         clientSocket.send(respond)
-
-        #Download photo
-        if isFound:
-            isDLPhoto = bool(clientSocket.recv(SIZE).decode(FORMAT))
-            if isDLPhoto == True:
-                file = open(f'photo\\{result.getID()}.jpg', 'rb')
-                data = file.read()
-
-                clientSocket.send(str(len(data)).encode(FORMAT))
-                clientSocket.send(data)
-
-                file.close()
 
     clientSocket.close()
     print(f"[DISCONNECT] {clientAddr} Disconnected.")
