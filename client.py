@@ -37,14 +37,16 @@ def displayPhoneBook(ls: list) -> None:
         displayContact(c)
         print("----------------------------")
 
-def isGetPhoto(contact: Contact):
-    print(f"Would you like to download {contact.getName()}'s profile picture?")
-    print("'Y' or 'y' to download, others to return to main menu: ", end = '')
-    decide = input()
+#Save photo of all contact in phonebook
+def savePhoneBookPhoto(lst: list):
+    for contact in lst:
+        saveContactPhoto(contact)
 
-    if (decide == 'Y' or decide == 'y'):
-        return True
-    return False
+#Save photo of a contact in phonebook
+def saveContactPhoto(contact: Contact):
+    photoFile = open(f'client\\{contact.getID()}.jpg', 'wb')
+    photoFile.write(contact.getPic())
+    photoFile.close()
 
 #Use with COMMAND dic: COMMAND[n]
 def menu():
@@ -114,19 +116,16 @@ def main():
                 if int(cmd) == 1:
                     ls = pickle.loads(fullData)
                     displayPhoneBook(ls)
+                    savePhoneBookPhoto(ls)
                 elif int(cmd) >= 2 and int(cmd) <= 4:
                     foundContact = pickle.loads(fullData)
                     if(foundContact == 0):
                         print(f'Cannot find {info} in the contact.')
                     else:
                         displayContact(foundContact)
+                        saveContactPhoto(foundContact)
 
-                        photoFile = open(f'client\\{foundContact.getID()}.jpg', 'wb')
-                        photoFile.write(foundContact.getPic())
-
-                        photoFile.close()
-
-                        os.system(f'client\\{foundContact.getID()}.jpg')
+                        
 
                 print("Enter to continue...")
                 input()

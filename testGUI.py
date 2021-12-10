@@ -1,16 +1,15 @@
 from cgitb import text
 from dataclasses import Field
-from tkinter.constants import LEFT, Y
 from contact import *
 import tkinter as tk
 from PIL import Image, ImageTk
 
 test1 = Contact("Hao", "492", "12345", "1mail", b'')
 test2 = Contact("Thai", "987", "12345", "2mail", b'')
-testList = [test1, test2, test1, test2, test1, test2]
+testList1 = [test1, test2, test1, test2, test1, test2]
+testList2 = [test1, test2]
 
 mainWindow = tk.Tk()
-mainWindow.wm_attributes('-transparentcolor', 'purple')
 
 
 class InfoBar():
@@ -49,6 +48,7 @@ class InfoBar():
 class InfoBox():
     def __init__(self, parrent, width, x=0, y=0, lst: list = []) -> None:
         self.width = width
+        self.lst = lst
 
         #Config
         self.container = tk.Frame(parrent)
@@ -71,18 +71,29 @@ class InfoBox():
         #Placement
         self.container.place(x=x, y=y)
         self.mainBox.pack(side= tk.LEFT, fill= tk.BOTH, expand= True)
-        self.scrol.pack(side = tk.RIGHT, fill= Y)
-        
-        for contact in lst:
-            self.createBar(contact)
+        self.scrol.pack(side = tk.RIGHT, fill= tk.Y)
 
     def createBar(self, contact: Contact):
         newBar = InfoBar(self.scrollableFrame, self.width - 10, contact.getName(),
                          contact.getPhone(), contact.getEmail(), contact.getID())
 
+    def newList(self, lst: list):
+        self.lst = lst
+    
+    def refeshBox(self):
+        self.scrollableFrame.pack_forget()
+        for widget in self.scrollableFrame.winfo_children():
+            widget.destroy()
+        
+        for contact in self.lst:
+            self.createBar(contact)
+
+
 
 class MainGUI():
     def __init__(self) -> None:
+        self.lst = testList1
+
         #main window
         mainWindow.title("Phone Book")
         mainWindow.geometry("1000x600")
@@ -114,9 +125,22 @@ class MainGUI():
         frame = tk.Frame(inputFrame, width=200, height=200, bg="#7e7e7e")
         frame.place(x=100, y=350)
 
-        testbox = InfoBox(inputFrame, 450, 470, 75, testList)
+        #List Box
+        self.listBox = InfoBox(inputFrame, 450, 470, 75)
+        self.listBox.newList(testList1)
+        self.listBox.refeshBox()
+
+        #Test Button
+        self.button = tk.Button(inputFrame, text= "Switch List", command= self.switchList)
+        self.button.pack()
 
         mainWindow.mainloop()
 
+    def switchList(self):
+        self.lst = testList2
+        self.listBox.newList(testList2)
+        self.listBox.refeshBox()
 
-start = MainGUI()
+
+if __name__ == "__main__":
+    start = MainGUI()
