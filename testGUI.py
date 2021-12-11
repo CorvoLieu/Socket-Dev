@@ -6,8 +6,8 @@ import tkinter as tk
 import random
 from PIL import Image, ImageTk
 
-test1 = Contact("Hao", "492", "12345", "1mail", b'')
-test2 = Contact("Thai", "987", "12345", "2mail", b'')
+test1 = Contact("Hao", "00001", "12345", "1mail", b'')
+test2 = Contact("Thai", "00002", "12345", "2mail", b'')
 testList1 = [test1, test2, test1, test2, test1, test2]
 testList2 = [test1, test2]
 
@@ -52,11 +52,11 @@ class InfoBar():
                            font=('Arial Italic', 12), anchor=tk.W, bg=Grey, fg="black")
 
         # Button "View Avatar"
-		avaBttn = tk.Button(mainBar, text="View Avatar",anchor= tk.W, command=MainGUI.ViewAva, bg=Bluely, fg="white")
+		avaBttn = tk.Button(mainBar, text="View Avatar",anchor= tk.W, command= lambda: MainGUI.ViewAva(id), bg=Bluely, fg="white")
 
         #Pic holder
 		self.picPlace = tk.Canvas(mainBar, bg= '#7e7e7e', width= 80, height= 80)
-		img = ImageTk.PhotoImage(Image.open("photo\\00001.jpg").resize((80, 80)))   #Temporally using 00001.jpg for testing
+		img = ImageTk.PhotoImage(Image.open(f"client\\{id}.jpg").resize((80, 80)))   #Temporally using 00001.jpg for testing
 		photo = tk.Label(self.picPlace, image= img)
 		photo.image = img
 		photo.pack()
@@ -124,8 +124,6 @@ class MainGUI():
 		phoneBookText = tk.Label(inputFrame, text='fonebook', font=("Arial Black", 40), fg= Bluely, bg = LightGrey)
 		phoneBookText.place(x=30, y=10)
 
-		#Pic place holder
-
 		#List Box
 		self.listBox = InfoBox(inputFrame, 450, 470, 75)
 		self.listBox.newList(testList1)
@@ -135,9 +133,8 @@ class MainGUI():
 		refreshbttn = tk.Button(inputFrame, text= "Refresh", command= self.listBox.refeshBox)
 		refreshbttn.place (x= 362, y= 123)
 
-		#Search bar
+		##Search bar
 		#Label
-
 		srcLabel = tk.Label(
 			inputFrame, text="Name", font=("Arial", 11), bg= LightGrey, fg="black"
 		)
@@ -168,9 +165,13 @@ class MainGUI():
 		print("hello")
 
 
-	def ViewAva():
+	def ViewAva(id: str):
 		frame = tk.Frame(inputFrame, width=300, height=300, bg= "#" + str(random.randint(0, 9)) + "5ea4" + str(random.randint(0, 9)))
 		frame.place(x=75, y=200)
+		img = ImageTk.PhotoImage(Image.open(f"photo\\{id}.jpg").resize((300, 300)))   #Temporally using 00001.jpg for testing
+		photo = tk.Label(frame, image= img)
+		photo.image = img
+		photo.pack()
 
 
 
