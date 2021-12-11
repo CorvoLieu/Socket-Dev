@@ -3,7 +3,6 @@ from dataclasses import Field
 from typing import Literal
 from contact import *
 import tkinter as tk
-import random
 from PIL import Image, ImageTk
 
 test1 = Contact("Hao", "00001", "12345", "1mail", b'')
@@ -20,7 +19,7 @@ SkyBlue = "#5C7AEA"
 mainWindow = tk.Tk()
 
 #main window
-mainWindow.title("Phone Book")
+mainWindow.title("FoneBook")
 mainWindow.geometry("1000x600")
 mainWindow.resizable(height=False, width=False)
 
@@ -122,37 +121,85 @@ class MainGUI():
 		
 		#Phone book text
 		phoneBookText = tk.Label(inputFrame, text='fonebook', font=("Arial Black", 40), fg= Bluely, bg = LightGrey)
-		phoneBookText.place(x=30, y=10)
+		phoneBookText.place(x=30, y=5)
+		
+		credit = tk.Label(inputFrame, text= "by Team 10, not Mark", font=("Comic Sans MS",12), fg=Navy, bg=LightGrey)
+		credit.place(x=305, y=45)
 
 		#List Box
 		self.listBox = InfoBox(inputFrame, 450, 470, 75)
 		self.listBox.newList(testList1)
 		self.listBox.refeshBox()
 
-		#Test Button
+		#Refresh Button
 		refreshbttn = tk.Button(inputFrame, text= "Refresh", command= self.listBox.refeshBox)
-		refreshbttn.place (x= 362, y= 123)
+		refreshbttn.place (x= 900, y= 10)
 
-		##Search bar
+		#Connect Button
+		connectbttn = tk.Button(inputFrame, text= "Connect", bg = Bluely, fg= "white")
+		connectbttn.place (x= 840, y= 10)
+
+		#Search bar (Name)
 		#Label
 		srcLabel = tk.Label(
 			inputFrame, text="Name", font=("Arial", 11), bg= LightGrey, fg="black"
 		)
-		srcLabel.place(x= 34, y= 100)
-
+		srcLabel.place(x= 34, y= 90)
 
 		#Bar
 		srcBox = tk.Entry(
 			inputFrame,  width=44
 		)
 		#srcBox.place(x=85, y=106)
-		srcBox.place(x=36, y=126)
+		srcBox.place(x=36, y=116)
 
 		#Button
 		srcBttn = tk.Button(
 			inputFrame, text="Search", bg=Bluely, fg="white", command= MainGUI.search
 		)
-		srcBttn.place (x=310, y=123)
+		srcBttn.place (x=310, y=113)
+
+
+		#Search bar (phonenumber)
+		#Label
+		srcLabel = tk.Label(
+			inputFrame, text="Phone number", font=("Arial", 11), bg= LightGrey, fg="black"
+		)
+		srcLabel.place(x= 34, y= 140)
+
+		#Bar
+		srcBox = tk.Entry(
+			inputFrame,  width=44
+		)
+		#srcBox.place(x=85, y=106)
+		srcBox.place(x=36, y=166)
+
+		#Button
+		srcBttn = tk.Button(
+			inputFrame, text="Search", bg=Bluely, fg="white", command= MainGUI.search
+		)
+		srcBttn.place (x=310, y=163)
+
+
+		#Search bar (email)
+		#Label
+		srcLabel = tk.Label(
+			inputFrame, text="Email", font=("Arial", 11), bg= LightGrey, fg="black"
+		)
+		srcLabel.place(x= 34, y= 190)
+
+		#Bar
+		srcBox = tk.Entry(
+			inputFrame,  width=44
+		)
+		#srcBox.place(x=85, y=106)
+		srcBox.place(x=36, y=216)
+
+		#Button
+		srcBttn = tk.Button(
+			inputFrame, text="Search", bg=Bluely, fg="white", command= MainGUI.search
+		)
+		srcBttn.place (x=310, y=213)
 
 		mainWindow.mainloop()
 
@@ -166,9 +213,9 @@ class MainGUI():
 
 
 	def ViewAva(id: str):
-		frame = tk.Frame(inputFrame, width=300, height=300, bg= "#" + str(random.randint(0, 9)) + "5ea4" + str(random.randint(0, 9)))
-		frame.place(x=75, y=200)
-		img = ImageTk.PhotoImage(Image.open(f"photo\\{id}.jpg").resize((300, 300)))   #Temporally using 00001.jpg for testing
+		frame = tk.Frame(inputFrame, width=267, height=267, bg= "#000000")
+		frame.place(x=34, y=260)
+		img = ImageTk.PhotoImage(Image.open(f"photo\\{id}.jpg").resize((267, 267)))   #Temporally using 00001.jpg for testing
 		photo = tk.Label(frame, image= img)
 		photo.image = img
 		photo.pack()
