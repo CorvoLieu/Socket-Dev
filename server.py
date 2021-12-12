@@ -70,7 +70,7 @@ def findContact(msg: str):
     if foundContacts:
         result = foundContacts
     else:
-        result = 0
+        result = []
 
     return result
 
