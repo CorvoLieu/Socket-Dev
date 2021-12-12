@@ -9,7 +9,7 @@ IP = socket.gethostbyname(socket.gethostname())
 PORT = 9999
 ADDR = (IP, PORT)
 FORMAT = "utf-8"
-SIZE = 1024 * 5
+SIZE = 1024
 
 COMMAND = {
     0: "!DISCONNECT",

@@ -33,39 +33,42 @@ def compileContactList() -> bytes:
 
 #Find by name
 def findByName(name: str):
+    result = []
     for c in contact:
         if c.find('name').text == name:
-            return c
-    return 0
+            result.append(compileFromTree(c))
+    return result
 
 #Find by phone
 def findByPhone(phone: str):
+    result = []
     for c in contact:
         if c.find('phone').text == phone:
-            return c
-    return 0
+            result.append(compileFromTree(c))
+    return result
 
 #Find by email
 def findByEmail(email: str):
+    result = []
     for c in contact:
         if c.find('email').text == email:
-            return c
-    return 0
+            result.append(compileFromTree(c))
+    return result
 
 #Find contact and return the contact
-#isFound return true if the contact is found
 def findContact(msg: str):
+    foundContacts = []
 
     if msg[6:10] == 'NAME':
-        foundContact = findByName(msg[11:])
+        foundContacts = findByName(msg[11:])
     elif msg[6:10] == 'NUMB':
-        foundContact = findByPhone(msg[11:])
+        foundContacts = findByPhone(msg[11:])
     elif msg[6:10] == 'MAIL':
-        foundContact = findByEmail(msg[11:])
+        foundContacts = findByEmail(msg[11:])
 
     #Check return information
-    if foundContact != 0:
-        result = compileFromTree(foundContact)    
+    if foundContacts:
+        result = foundContacts
     else:
         result = 0
 
@@ -84,7 +87,8 @@ def handle_client(clientSocket, clientAddr):
     connected = True
     while connected:
         msg = clientSocket.recv(SIZE).decode(FORMAT)
-        isFound = False
+        if not msg:
+            continue
 
         if msg == COMMAND[0]:
             connected = False
@@ -93,6 +97,9 @@ def handle_client(clientSocket, clientAddr):
             result = compileContactList()
         elif msg[1:5] == 'FIND':
             result = findContact(msg)
+        else:
+            print(f'[{clientAddr}] Unknown message: {msg}')
+            continue
             
         respond = pickle.dumps(result)
         respondSize = len(respond)
