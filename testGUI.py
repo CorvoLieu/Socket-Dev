@@ -32,11 +32,9 @@ def connectSocket():
         try:
             serverSocket.connect(ADDR)
             notCnnt = False
-            _msg = tk.Label(inputFrame, text="Connected!", font=("Arial", 10), bg=LightGrey)
-            _msg.place(x=883, y=40)
+            messagebox.showinfo("FoneBook","Successfully connected")
         except socket.error as msg:
-            _warn = tk.Label(inputFrame, text="Already connected!", font=("Arial", 10), bg=LightGrey)
-            _warn.place(x=837, y=40)
+            messagebox.showinfo("FoneBook","Already connected")
             print(msg)
             break
 
@@ -67,7 +65,7 @@ testList2 = [test1, test2]
 
 # closing window
 def onClose():
-	if messagebox.askokcancel("Quit", "Do you want to quit?"):
+	if messagebox.askokcancel("Quit", "Do you want to quit?\nProject by Team 10"):
 		mainWindow.destroy()
 		closeSocket()
 
@@ -191,14 +189,18 @@ class MainGUI():
 
         self.lst = None
 
+        joke = tk.Label(inputFrame, text="No, it's not Facebook",
+                            font=("Comic Sans MS", 7), fg=Navy, bg=LightGrey)
+        joke.place(x=340, y=61)
+
         # Phone book text
         phoneBookText = tk.Label(inputFrame, text='fonebook', font=(
-            "Arial Black", 40), fg=Bluely, bg=LightGrey)
+            "Arial Black", 45), fg=Bluely, bg=LightGrey)
         phoneBookText.place(x=30, y=5)
 
-        credit = tk.Label(inputFrame, text="by Team 10, not Mark",
-                            font=("Comic Sans MS", 12), fg=Navy, bg=LightGrey)
-        credit.place(x=300, y=45)
+        #credit = tk.Label(inputFrame, text="by Team 10",
+        #                    font=("Arial Italic", 13), fg=Bluely, bg=LightGrey)
+        #credit.place(x=305, y=47)
 
         # List Box
         self.listBox = InfoBox(inputFrame, 450, 470, 75)
@@ -283,19 +285,28 @@ class MainGUI():
         self.listBox.refeshBox()
 
     def searchName(self, name: str):
-        self.lst = sendAndRecv(COMMAND[2]+name)
-        self.listBox.newList(self.lst)
-        self.listBox.refeshBox()
+        try:
+            self.lst = sendAndRecv(COMMAND[2]+name)
+            self.listBox.newList(self.lst)
+            self.listBox.refeshBox()
+        except:
+            messagebox.showinfo("Search", "Name's not found")
 
     def searchNum(self, num: str):
-        self.lst = sendAndRecv(COMMAND[3]+num)
-        self.listBox.newList(self.lst)
-        self.listBox.refeshBox()
+        try:
+            self.lst = sendAndRecv(COMMAND[3]+num)
+            self.listBox.newList(self.lst)
+            self.listBox.refeshBox()
+        except:
+            messagebox.showinfo("Search", "Phone number's not found")
 
     def searchEmail(self, email: str):
-        self.lst = sendAndRecv(COMMAND[4]+email)
-        self.listBox.newList(self.lst)
-        self.listBox.refeshBox()
+        try:
+            self.lst = sendAndRecv(COMMAND[4]+email)
+            self.listBox.newList(self.lst)
+            self.listBox.refeshBox()
+        except:
+            messagebox.showinfo("Search", "Email's not found")
 
     def ViewAva(id: str):
         frame = tk.Frame(inputFrame, width=267, height=267, bg="#000000")
