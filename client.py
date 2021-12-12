@@ -31,7 +31,7 @@ serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 def connectFail(msg: str):
     global serverSocket
-    messagebox.showerror("FoneBook", str(msg) + '\nPlease reconnect')
+    messagebox.showerror("FoneBook", str(msg))
     serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
@@ -45,6 +45,7 @@ def connectSocket():
 
 
 def closeSocket():
+    global serverSocket
     try:
         serverSocket.send(COMMAND[0].encode(FORMAT))
     except:
@@ -300,9 +301,12 @@ class MainGUI():
 
     # Display all contact in the list
     def displayList(self):
-        self.lst = sendRecvProcess(COMMAND[1])
-        self.listBox.newList(self.lst)
-        self.listBox.refeshBox()
+        try:
+            self.lst = sendRecvProcess(COMMAND[1])
+            self.listBox.newList(self.lst)
+            self.listBox.refeshBox()
+        except socket.error as msg:
+            connectFail(msg)
 
     # Search by name
     def searchName(self, name: str):
@@ -335,7 +339,7 @@ class MainGUI():
     def ViewAva(id: str):
         frame = tk.Frame(inputFrame, width=267, height=267, bg="#000000")
         frame.place(x=34, y=260)
-        img = ImageTk.PhotoImage(Image.open(f"photo\\{id}.jpg").resize(
+        img = ImageTk.PhotoImage(Image.open(f"client\\{id}.jpg").resize(
             (267, 267)))
         photo = tk.Label(frame, image=img)
         photo.image = img
