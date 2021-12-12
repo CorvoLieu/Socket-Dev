@@ -1,4 +1,3 @@
-# from _typeshed import Self         #<<< Báo lỗi nên tạm thời vô hiệu hóa
 from cgitb import text
 from time import sleep
 from tkinter.font import Font
@@ -305,35 +304,35 @@ class MainGUI():
             self.lst = sendRecvProcess(COMMAND[1])
             self.listBox.newList(self.lst)
             self.listBox.refeshBox()
-        except socket.error as msg:
-            connectFail(msg)
+        except:
+            messagebox.showwarning("FoneBook","Try again")
 
     # Search by name
     def searchName(self, name: str):
-        try:
-            self.lst = sendRecvProcess(COMMAND[2]+name)
+        self.lst = sendRecvProcess(COMMAND[2]+name)
+        if self.lst:
             self.listBox.newList(self.lst)
             self.listBox.refeshBox()
-        except socket.error as msg:
-            connectFail(msg)
+        else:
+            messagebox.showerror("Search", "Name not found")
 
     # Search by phone
     def searchNum(self, num: str):
-        try:
-            self.lst = sendRecvProcess(COMMAND[3]+num)
+        self.lst = sendRecvProcess(COMMAND[3]+num)
+        if self.lst:
             self.listBox.newList(self.lst)
             self.listBox.refeshBox()
-        except socket.error as msg:
-            connectFail(msg)
+        else:
+            messagebox.showerror("Search", "Phone number not found")
 
     # Search by email
     def searchEmail(self, email: str):
-        try:
-            self.lst = sendRecvProcess(COMMAND[4]+email)
+        self.lst = sendRecvProcess(COMMAND[4]+email)
+        if self.lst:
             self.listBox.newList(self.lst)
             self.listBox.refeshBox()
-        except socket.error as msg:
-            connectFail(msg)
+        else:
+            messagebox.showerror("Search", "Email not found")
 
     # View chosen profile picture
     def ViewAva(id: str):

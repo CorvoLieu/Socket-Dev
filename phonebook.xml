@@ -1,33 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <phonebook>
 	<contact id = "00001">
-		<name>Elif Ekmekçi</name>
-		<phone>2548952011</phone>
-		<email>elif90@gmail.com</email>
+		<name>Hạo Liêu</name>
+		<phone>2012</phone>
+		<email>haolieu@gmail.com</email>
 		<picDir>photo\00001</picDir>
 	</contact>
 	<contact id = "00002">
-		<name>Bukar Adebayo</name>
-		<phone>4751236453</phone>
-		<email>bukar6453@yahoo.com</email>
+		<name>Trang Nguyễn</name>
+		<phone>20127650</phone>
+		<email>trangng@gmail.com</email>
 		<picDir>photo\00002</picDir>
 	</contact>
 	<contact id = "00003">
-		<name>Juda Alfarsi</name>
-		<phone>9954123654</phone>
-		<email>jj@hotmail.com</email>
+		<name>Thái Tô</name>
+		<phone>20127626</phone>
+		<email>mottomythai@gmail.com</email>
 		<picDir>photo\00003</picDir>
 	</contact>
 	<contact id = "00004">
-		<name>Georgene Clarence</name>
-		<phone>1245789630</phone>
-		<email>profCl@gmail.com</email>
+		<name>Elif Ekmekçi</name>
+		<phone>2548952011</phone>
+		<email>elif90@gmail.com</email>
 		<picDir>photo\00004</picDir>
 	</contact>
 	<contact id = "00005">
+		<name>Bukar Adebayo</name>
+		<phone>4751236453</phone>
+		<email>bukar6453@yahoo.com</email>
+		<picDir>photo\00005</picDir>
+	</contact>
+	<contact id = "00006">
+		<name>Juda Alfarsi</name>
+		<phone>9954123654</phone>
+		<email>jj@hotmail.com</email>
+		<picDir>photo\00006</picDir>
+	</contact>
+	<contact id = "00007">
+		<name>Georgene Clarence</name>
+		<phone>1245789630</phone>
+		<email>profCl@gmail.com</email>
+		<picDir>photo\00007</picDir>
+	</contact>
+	<contact id = "00008">
 		<name>Đức Văn</name>
 		<phone>0365484759</phone>
 		<email>vndc1886@yahoo.com</email>
-		<picDir>photo\00005</picDir>
+		<picDir>photo\00008</picDir>
 	</contact>
 </phonebook>
